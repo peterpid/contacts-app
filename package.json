@@ -1,0 +1,35 @@
+{
+  "name": "contacts-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm-run-all test:html test:js",
+    "test:html": "globstar nu-html-checker *.html",
+    "test:js": "globstar jshint *.js components/*.js",
+    "init-project": "npm install && mkdir components vendor images js && touch script.js",
+    "watch": "npm-run-all -p watch:browsersync",
+    "watch:browsersync": "browser-sync start --server --files \"*.html\" \"*.js\" \"components/*.js\"",
+    "build": "npm-run-all test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterpid/contacts-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterpid/contacts-app/issues"
+  },
+  "homepage": "https://github.com/peterpid/contacts-app#readme",
+  "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "globstar": "^1.0.0",
+    "jshint": "^2.9.5",
+    "npm-run-all": "^4.1.2",
+    "nu-html-checker": "^0.1.0",
+    "onchange": "^3.3.0",
+    "rimraf": "^2.6.2"
+  }
+}
