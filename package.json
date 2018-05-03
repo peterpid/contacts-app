@@ -8,9 +8,13 @@
     "test:html": "globstar nu-html-checker *.html",
     "test:js": "globstar jshint *.js components/*.js",
     "init-project": "npm install && mkdir components vendor images js && touch script.js",
-    "watch": "npm-run-all -p watch:browsersync",
+    "watch": "npm-run-all -p watch:browsersync watch:sassprefixer build",
     "watch:browsersync": "browser-sync start --server --files \"*.html\" \"*.js\" \"components/*.js\"",
-    "build": "npm-run-all test"
+    "build:clean": "rimraf css/*.css",
+    "build:sass": "node-sass --output-style expanded --source-map true -o css sass",
+    "watch:sassprefixer": "onchange sass/*.scss -- npm-run-all build:sass build:autoprefixer",
+    "build:autoprefixer": "globstar autoprefixer-cli -b \"> 1%\" css/*.css",
+    "build": "npm-run-all build:clean build:sass build:autoprefixer test"
   },
   "repository": {
     "type": "git",
@@ -24,9 +28,11 @@
   },
   "homepage": "https://github.com/peterpid/contacts-app#readme",
   "devDependencies": {
+    "autoprefixer-cli": "^1.0.0",
     "browser-sync": "^2.23.6",
     "globstar": "^1.0.0",
     "jshint": "^2.9.5",
+    "node-sass": "^4.7.2",
     "npm-run-all": "^4.1.2",
     "nu-html-checker": "^0.1.0",
     "onchange": "^3.3.0",
